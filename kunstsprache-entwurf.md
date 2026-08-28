@@ -1,11 +1,13 @@
 # Kunstsprache-Entwurf (Arbeitstitel: „Klar")
 
-**Version:** 2.1 · **Stand:** 2026-08-06
+**Version:** 2.3 · **Stand:** 2026-08-06
 
 ## Änderungshistorie
 
 | Version | Datum | Änderung |
 |---|---|---|
+| 2.3 | 2026-08-06 | Reorganisation nach Einführung von Buch 1 „Gedanken zu einer Weltsprache": Kapitel 1/1a/1b und Kapitel 8 gestrafft — ausführliche Begründungen, historischer Kontext (Bickerton/DeGraff) und die „lohnt sich Verbreitung"-Diskussion wandern per Verweis zu Buch 1, hier bleiben nur die Regeln und die für die Spezifikation direkt relevanten Befunde |
+| 2.2 | 2026-08-06 | Onomatopoesie als neuer Abschnitt 6.4a (8 lautmalerische Wurzeln, geprüft). Eigenständige Kurzantwort „nein" auf `nono` (Reduplikation) geändert — zusätzliche Silbenzahl-Unterscheidung von „ja" (`pa`), da Dauer/Timing eine der robustesten akustischen Eigenschaften überhaupt ist (7.1); klauselinterne Verneinung bleibt `no` |
 | 2.1 | 2026-08-06 | Wurzel „pom" (Apfel) offiziell im Kernwortschatz nachgetragen — wurde seit Version 1.0 durchgängig in Beispielsätzen benutzt, war aber nie formal aufgenommen. Neues Begleitdokument „Klar-Englisch-Wörterbuch" mit ~94 alltäglichen Wurzeln erstellt (mit Prüfskript validiert) |
 | 2.0 | 2026-08-06 | Prüfskript für neue Wurzeln entwickelt (Phonotaktik, Kollisionen, Stimmhaftigkeits-/r-l-Minimalpaare) — deckte sofort weitere Fehler auf: **„h" war nie im 13-Konsonanten-Inventar enthalten**, aber in `ho`(und), `ha`(ja), `hunda`(100) verwendet — korrigiert zu `ko`, `pa`, `sena`. Ziffern 3/4/6/9 enthielten Cluster bzw. den unerlaubten Laut „v" — `tri`→`fin`, `kwar`→`fer`, `seks`→`sik`, `nov`→`nom`. Alle Stellen systemweit aktualisiert |
 | 1.9 | 2026-08-06 | Abschnittsnummerierung in Kapitel 5 korrigiert (5.3–5.8 waren durch frühere Einfügungen nicht mehr in Lesereihenfolge) — alle internen Verweise entsprechend aktualisiert |
@@ -25,32 +27,31 @@ Ziel: eine Plansprache, die Kinder schnell lernen, die logisch regelmäßig ist 
 
 ## 1. Designprinzipien
 
+*Ausführliche Begründungen, historischer Kontext und offene Diskussionsfragen: siehe Buch 1 „Gedanken zu einer Weltsprache". Hier nur die Regeln selbst, als Referenz für den Rest dieses Dokuments.*
+
 1. **Eine Regel, keine Ausnahme.** Jede grammatische Regel gilt immer, ohne Sonderfälle.
-2. **Explizit statt implizit.** Struktur wird durch feste Marker sichtbar gemacht, nicht durch Wortstellung erraten – das macht die Sprache robuster gegen Missverständnisse, ohne dass man sich mehr merken muss.
-3. **Kompositionalität als Werkzeug, nicht als Ziel.** Dass sich Bedeutung regelbasiert aus Grammatik + Lexikon „berechnen" lässt (wie bei einer Programmiersprache), ist ein *Hilfsmittel*, um die Sprache logisch sauber zu konstruieren und auf Eindeutigkeit zu prüfen — **kein Selbstzweck**. Formale/IT-Verträglichkeit ist zweitrangig gegenüber Alltagstauglichkeit: Wo beides in Konflikt gerät, entscheidet, was Menschen im Alltag leicht sprechen und verstehen, nicht was maschinell am elegantesten parsebar ist. Beispiel dieser Priorität in der Praxis: die Sprech-/Schreib-Grammatik-Trennung (5.6), die absichtlich unterschiedliche Komplexität für gesprochene und geschriebene Sprache erlaubt.
+2. **Explizit statt implizit.** Struktur wird durch feste Marker sichtbar gemacht, nicht durch Wortstellung erraten.
+3. **Kompositionalität als Werkzeug, nicht als Ziel.** Formale/IT-Verträglichkeit ist zweitrangig gegenüber Alltagstauglichkeit — wo beides in Konflikt gerät, entscheidet, was Menschen leicht sprechen und verstehen (Beispiel: Sprech-/Schreib-Grammatik-Trennung, 5.6).
 4. **Kleiner Kern, große Reichweite.** Wenige hundert Grundwurzeln, alles andere durch Komposition.
-5. **Fehlerrobustheit.** Da „Klar" (zumindest anfangs) für niemanden Muttersprache ist, darf der Sinn eines Satzes nicht zu stark von exakt korrekter Grammatik/Wortwahl abhängen — ähnlich wie ein verrauschter Datenkanal durch Redundanz Übertragungsfehler abfängt. Siehe Testprotokoll (Abschnitt 7) für die konkreten Regeln, die daraus folgen.
-6. **Kanalrobustheit.** Verständlichkeit soll auch unter eingeschränkten Übertragungsbedingungen erhalten bleiben — geflüstert, bei körperlichen Einschränkungen der Aussprache, oder in lauter Umgebung. Das ist ein Spezialfall von Prinzip 5, aber mit eigenen Anforderungen (z. B. fällt beim Flüstern die Stimmhaftigkeit als Unterscheidungsmerkmal komplett weg). Siehe 7.1.
+5. **Fehlerrobustheit.** Der Sinn eines Satzes soll nicht zu stark von exakt korrekter Grammatik/Wortwahl abhängen (Testprotokoll: Abschnitt 7).
+6. **Kanalrobustheit.** Verständlichkeit soll auch unter eingeschränkten Übertragungsbedingungen erhalten bleiben — Flüstern, körperliche Einschränkungen, Störgeräusch (Abschnitt 7.1).
 
 ---
 
 ## 1a. Entwicklungsmethode
 
-Es geht hier nicht um ein fertiges Endprodukt, sondern um einen Weg, „Klar" zu entwickeln. Ernsthafte Plansprachenprojekte (z. B. Esperanto) sind über Jahre an echten Testkorpora geprüft und revidiert worden, nicht am Reißbrett fertig entstanden. Vorgehen für „Klar":
-
 1. **Kern-Skelett** (Phonologie, Wortarten, Partikelsystem) — bewusst minimal halten.
-2. **Testkorpus** aufbauen: echte Alltagssätze übersetzen (Gespräche, Kinderbuch-Sätze, technische Anleitungen), nicht nur konstruierte Beispielsätze.
+2. **Testkorpus** aufbauen: echte Alltagssätze übersetzen, nicht nur konstruierte Beispielsätze.
 3. Überall dort, wo sich eine Übersetzung falsch, zu lang oder mehrdeutig anfühlt: **Regel anpassen statt Ausnahme einführen.**
 4. Erst nach mehreren Testrunden Richtung „Standard" fixieren.
 
-### 1b Parallelen zu Kreolsprachen
+### 1b Parallelen zu Kreolsprachen — Befunde für die Spezifikation
 
-Ein Blick auf natürlich entstandene Kontaktsprachen (Kreolsprachen) bestätigt mehrere unabhängig getroffene Entscheidungen in „Klar" und liefert Hinweise für die Weiterentwicklung:
+*Theoretischer Hintergrund (Bickerton-Hypothese, DeGraff-Kritik) und Einordnung: siehe Buch 1. Hier nur die daraus abgeleiteten, in die Grammatik übernommenen Ergebnisse:*
 
-- **Bestätigung:** Kreolsprachen zeichnen sich typischerweise durch feste SVO-Wortstellung und **präverbale Markierung von Negation, Tempus und Modus** aus — genau das TAM-Slot-Prinzip aus 4.2/5.1 (`li`/`pe`/`ke`/`we` vor dem Verb, `no` direkt danach). Ebenso vermeiden Kreolsprachen „alle einigermaßen schwierigen Lautverbindungen" und bevorzugen Zweisilbigkeit — deckt sich mit der (K)V-Phonotaktik (Abschnitt 2) und damit, dass Wurzel+Endung-Formen fast immer zweisilbig sind (`kal`+`a`=`ka-la`).
-- **Theoretischer Hintergrund (Bickerton, Bioprogramm-Hypothese):** Kinder, die nur lückenhaften Sprachinput (Pidgin) erhalten, entwickeln daraus spontan eine vollständige Kreolsprache mit genau diesen Merkmalen — die (in der Sprachwissenschaft umstrittene) Hypothese ist, dass hier eine angeborene Universalgrammatik greift. Falls das zutrifft, wäre die Übereinstimmung von „Klar" mit Kreolsprachen kein Zufall, sondern ein Hinweis, dass diese Strukturen dem kindlichen Spracherwerb besonders entgegenkommen — relevant für Prinzip „leicht zu lernen für Kinder". Als zusätzliches Indiz einzuordnen, nicht als Beweis — Gegenthesen (Vereinfachungstheorie, Substrattheorie) bestehen.
-- **Neue Idee zum Prüfen — Serialverbkonstruktionen:** Kreolsprachen drücken komplexe Ereignisse oft durch aneinandergereihte Verben ohne Konjunktion aus (z. B. „nimm-geh" für „mitnehmen"), statt für jede Nuance eine neue grammatische Kategorie einzuführen. Passt zu Prinzip 4 („kleiner Kern, große Reichweite") — könnte z. B. Richtungs- oder Instrumentalbedeutungen abdecken, ohne neue Partikel zu brauchen. Für den nächsten Testkorpus-Durchgang vormerken (→ Kapitel 9).
-- **Beobachtung, noch nicht übernommen:** Manche Kreolsprachen verwenden doppelte Verneinung. Widerspricht auf den ersten Blick der Ökonomie, ließe sich aber auch als weitere Redundanzebene im Sinne von Abschnitt 7 lesen (schwerer zu überhören als eine einzelne Verneinung). Noch offen, ob das für „Klar" sinnvoll wäre (→ Kapitel 9).
+- **Bestätigt:** Kreolsprachen nutzen typischerweise feste SVO-Stellung und präverbale Tempus-/Modus-Markierung — deckt sich mit dem TAM-Slot-Prinzip (4.2/5.1: `li`/`pe`/`ke`/`we` vor dem Verb, `no` direkt danach) und der (K)V-Phonotaktik (Abschnitt 2).
+- **Übernommen:** Serialverbkonstruktionen ohne Konjunktion — ausgearbeitet in 5.3.
+- **Noch offen:** Doppelte Verneinung als mögliche Redundanzebene (Kapitel 9).
 
 ## 2. Phonologie (Lautsystem)
 
@@ -250,14 +251,18 @@ Verbketten ohne Konjunktion, wie in Kreolsprachen üblich, wurden an zwei Fälle
 
 **Ergebnis:** Serial-Verb-Ketten sind als **informelle Kurzform** für eng verbundene Ereignisse (wie den Mitnahme-Fall) uneingeschränkt brauchbar — passend zum Sprech-Register (5.6), ohne neue Partikel. Für Zweckangaben, wo Eindeutigkeit wichtiger ist, steht der explizite Verknüpfer `po` zur Verfügung: `nu li lemi po fidi.` = „er ging, um zu sehen" (eindeutig). Damit folgt auch dieser Fall dem etablierten Muster Sprech-/Schreib-Grammatik: kurz und leicht mehrdeutig im Alltag, explizit und eindeutig, wo es zählt.
 
+**Erweiterung (aus dem Märchen-Experiment, Buch 4):** Serialverbketten sind nicht auf zwei Verben begrenzt — beliebig viele Verben mit gleichem Subjekt und gleichem Tempus dürfen sich einen einzigen TAM-Marker teilen: `nu pe lemi ta bera, fidi e biga, sali e biga.` („es ging zum Berg, sah den Vogel, grüßte ihn" — ein `pe` für drei Verben). Die Kette bricht automatisch und vorhersagbar, sobald Subjekt oder Tempus wechseln — keine neue Ausnahme, nur eine konsequente Anwendung derselben Regel auf mehr als zwei Glieder. Löst das in langen Texten störende Muster, jeden Satz einzeln zu markieren.
+
 ### 5.4 Ja/Nein als eigenständige Antwort
 
 | Klar | Bedeutung |
 |---|---|
-| no | nein (identisch mit der Verneinung, kein neues Wort nötig) |
+| nono | nein (eigenständige Antwort — Reduplikation von `no`) |
 | pa | ja |
 
-`pa` wurde bewusst gewählt, nicht `si` (das ist bereits als Pronomen „du" vergeben — eine Kollision zwischen „du" und „ja" wäre besonders riskant) und nicht `ha` (enthält „h", das nicht im 13-Konsonanten-Inventar aus Abschnitt 2 enthalten ist — Korrektur analog zu 7.1). `pa`/`no` unterscheiden sich in **beiden** Lauten (Konsonant und Vokal) — anders als bei den übrigen Partikeln (Abschnitt 4.2/5.2, dort reicht sonst ein Laut Unterschied zwischen verschiedenen Kategorien) verdient das Ja/Nein-Paar den größtmöglichen Abstand, weil eine Verwechslung hier die Satzbedeutung ins glatte Gegenteil kippt — die höchste Fehlerquote im ganzen System.
+`pa` wurde bewusst gewählt, nicht `si` (das ist bereits als Pronomen „du" vergeben — eine Kollision zwischen „du" und „ja" wäre besonders riskant) und nicht `ha` (enthält „h", das nicht im 13-Konsonanten-Inventar aus Abschnitt 2 enthalten ist — Korrektur analog zu 7.1). `pa`/`no` unterscheiden sich bereits in **beiden** Lauten (Konsonant und Vokal) — anders als bei den übrigen Partikeln (Abschnitt 4.2/5.2, dort reicht sonst ein Laut Unterschied zwischen verschiedenen Kategorien) verdient das Ja/Nein-Paar den größtmöglichen Abstand, weil eine Verwechslung hier die Satzbedeutung ins glatte Gegenteil kippt — die höchste Fehlerquote im ganzen System.
+
+**Warum die eigenständige Antwort zusätzlich verdoppelt ist:** Als isoliertes Ein-Wort-Antwort fehlt der sonstige Satzkontext, der anderswo als Rückfallebene dient (Abschnitt 7) — hier zählt jede zusätzliche Unterscheidungsebene. Silbenzahl ist akustisch eine der robustesten Eigenschaften überhaupt (reine Dauer-/Timing-Information, unabhängig von Stimmhaftigkeit, Tonhöhe oder Klangfarbe — bleibt auch unter Flüstern oder starkem Störgeräusch erhalten, Abschnitt 7.1). `nono` (zwei Silben) vs. `pa` (eine Silbe) unterscheiden sich damit zusätzlich in der Silbenzahl, nicht nur in Konsonant und Vokal — die maximal mögliche Absicherung für den höchsten Fehlerfall im System. Die Reduplikation selbst ist keine neue Regel, sondern in vielen Sprachen ein natürliches Verstärkungsmuster (vgl. informelles Doppel-„nein, nein!"). Die klauselinterne Verneinung bleibt einfaches `no` (5.5) — dort sichert der Satzkontext ohnehin ab.
 
 ### 5.5 Verneinung — Übersicht
 
@@ -269,11 +274,11 @@ Verneinung ist über mehrere Abschnitte verteilt eingeführt worden; hier gesamm
 |---|---|---|
 | Satzverneinung | `no` direkt vor dem Verb, nach li/pe/ke/we | 4.2, 5.1 |
 | Logisches „nicht" | `no` als Konnektor in geklammerten Aussagen | 5.2 |
-| Kurzantwort „nein" | `no` allein als Antwort auf eine Frage | 5.4 |
+| Kurzantwort „nein" | `nono` (Reduplikation von `no`) als eigenständige Antwort auf eine Frage | 5.4 |
 
-**Warum das robust ist:** `no` beginnt mit einem Nasal (n) — nasale Konsonanten bleiben auch unter erschwerten Bedingungen (Flüstern, siehe 7.1) noch über ihre charakteristische Resonanz erkennbar, anders als die Stimmhaftigkeit bei Verschlusslauten. Die Gegenform `pa` (5.4) ist bewusst maximal entfernt gewählt.
+**Warum das robust ist:** `no` beginnt mit einem Nasal (n) — nasale Konsonanten bleiben auch unter erschwerten Bedingungen (Flüstern, siehe 7.1) noch über ihre charakteristische Resonanz erkennbar, anders als die Stimmhaftigkeit bei Verschlusslauten. Die Gegenform `pa` (5.4) ist bewusst maximal entfernt gewählt, die Kurzantwort `nono` zusätzlich durch Silbenzahl abgesichert.
 
-**Offene Frage (aus 1b, noch nicht entschieden):** Manche Kreolsprachen verwenden doppelte Verneinung als zusätzliche Verstärkung/Redundanz. Für „Klar" noch nicht geklärt, ob das die Fehlerrobustheit (Abschnitt 7) verbessern würde oder nur unnötige Länge hinzufügt — offener Punkt (Kapitel 9).
+**Offene Frage (aus 1b, noch nicht entschieden):** Manche Kreolsprachen verwenden doppelte Verneinung *innerhalb des Satzes* als zusätzliche Verstärkung/Redundanz — zu unterscheiden von der Reduplikation der *eigenständigen Kurzantwort* aus 5.4, die bereits umgesetzt ist. Ob dasselbe Prinzip auch innerhalb ganzer Sätze die Fehlerrobustheit (Abschnitt 7) verbessern würde oder nur unnötige Länge hinzufügt, ist weiterhin offen (Kapitel 9).
 
 ### 5.6 Sprech-Grammatik vs. Schreib-Grammatik
 
@@ -333,6 +338,23 @@ Diese Trennung ist wichtig: Fachbegriffe sollen in die Systematik der Sprache pa
 Auch wenn sprachliche Zeichen über den gesamten Wortschatz hinweg beliebig sind, gibt es einen gut belegten Ausnahmebereich (Bouba-Kiki-Effekt, Frequenzcode nach Ohala): Runde, weiche Laute (m, n, l, r + o, u) werden sprachübergreifend konsistent mit „rund, weich, groß, sanft" assoziiert; scharfe, harte Laute (p, t, k + i) mit „spitz, hart, klein, schnell". Das ist einer der wenigen wirklich universellen Befunde der Lautsymbolik-Forschung.
 
 Regel für den Kernwortschatz: Wurzeln für weiche/sanfte/große Konzepte (Wasser, Mutter, ruhen, Liebe) bevorzugt mit Sonoranten (m, n, l, r) und Rundvokalen (o, u) bilden; Wurzeln für harte/scharfe/schnelle/gefährliche Konzepte (Stein, brechen, schneiden, Gefahr) bevorzugt mit stimmlosen Verschlusslauten (p, t, k) und dem Vokal i. Das gibt eine **sechste Redundanzebene** (neben Rollen-Partikeln und Standardreihenfolge aus 5.1, semantischer Plausibilität aus Abschnitt 7, und Intonation aus 5.7): selbst ein unbekanntes Wort lässt sich grob in die richtige Gefühlsrichtung einordnen, bevor die exakte Bedeutung bekannt ist.
+
+### 6.4a Onomatopoesie (Lautmalerei)
+
+Verwandt mit, aber nicht identisch zur Lautsymbolik aus 6.4: Lautsymbolik verknüpft Laute mit *abstrakten* Bedeutungen (weich/hart), Onomatopoesie ahmt *konkrete Geräusche* direkt nach. Wie überall im Lexikon gilt die (K)V-Phonotaktik (Abschnitt 2) auch hier ohne Ausnahme — echte Cluster wie im deutschen „Knall" oder „Plumps" sind nicht nachbildbar, nur die Klangqualität wird über Konsonant- und Vokalwahl angenähert. Alle Wurzeln unten mit dem Prüfskript (7.1) validiert:
+
+| Wurzel | Bedeutung | Lautqualität |
+|---|---|---|
+| bum | Bumm/dumpfer Knall | Nasal + Rundvokal — dumpf, tief |
+| rak | Krach | harter Verschlusslaut + a — schroff |
+| tak | Knall (kurz, scharf) | stimmloser Verschlusslaut beidseitig — abrupt |
+| ris | Kratzen | Frikativ s — schleifend |
+| dum | dumpf | Nasal + Rundvokal, wie „bum" — passend redundant |
+| pos | Plumps | stimmloser Anlaut + Rundvokal — weiches Auftreffen |
+| bat | laut | stimmhafter Anlaut + a — offen, voll |
+| sil | leise | Frikativ + i + l — gedämpft, eng |
+
+„bat"/„sil" (laut/leise) sind kein reiner Nachhall eines Geräuschs, sondern nutzen bewusst dasselbe Lautsymbolik-Prinzip aus 6.4 (offener/harter Laut vs. enger/weicher Laut) — ein Grenzfall zwischen Onomatopoesie und Lautsymbolik, der zeigt, dass beide Phänomene ineinander übergehen.
 
 ### 6.5 Kernwortschatz — erste Fassung (Entwurf, ~30 Wurzeln)
 
@@ -456,6 +478,8 @@ Als Regel für künftige Wortbildung festgehalten: **kein Wortpaar darf sich aus
 
 ## 8. Verbreitungsstrategie
 
+*Die grundsätzliche Frage, ob Design-Qualität überhaupt Verbreitung erzeugen kann und ob das als Projektziel sinnvoll ist, wird in Buch 1 „Gedanken zu einer Weltsprache" als offene Diskussionsfrage behandelt. Hier die praktischen Konsequenzen für „Klar" konkret.*
+
 **Ausgangsbefund, unbequem aber wichtig:** Keine geplante Sprache ist je aus reiner Qualität heraus zur Weltsprache geworden. Esperanto existiert seit 1887, hat Millionen Lerner gehabt, ausgezeichnete Logik, engagierte Communities — und blieb Nische. Grund: Sprachverbreitung folgt einem **Netzwerkeffekt** (man lernt eine Sprache, weil andere sie schon sprechen, mit denen man etwas zu tun hat), nicht der Qualität der Sprache selbst. Englisch ist Weltsprache wegen Empire/Wirtschaft/Technologie/Populärkultur, nicht wegen seiner (eher chaotischen) Grammatik.
 
 ### 8.1 Konsequenzen für „Klar"
@@ -475,10 +499,11 @@ Keine homogene Gruppe mit einem Interesse — aber zwei konkrete Ansatzpunkte:
 
 ## 9. Offene Punkte für die Vertiefung
 
-- Prüfen, ob doppelte Verneinung als zusätzliche Redundanzebene sinnvoll ist (aus 1b, Abschnitt 7)
+- Pronomen-Mehrdeutigkeit bei mehreren dritten Personen (`nu` unterscheidet nicht zwischen mehreren belebten Referenten) — aufgefallen im Märchen-Experiment (Buch 4); mögliche Lösung nach Vorbild der Algonkin-Sprachen (proximate/obviative Unterscheidung), noch nicht ausgearbeitet
+- Prüfen, ob doppelte Verneinung *innerhalb des Satzes* als zusätzliche Redundanzebene sinnvoll ist (aus 1b, Abschnitt 7; zu unterscheiden von der bereits umgesetzten Reduplikation der Kurzantwort in 5.4)
 - Weitere Testsätze gezielt für Fehlerrobustheit sammeln (Abschnitt 7 ausbauen)
 - Vollständiges Kernlexikon (300–500 Wurzeln) ausarbeiten
 - Formale Grammatik als BNF niederschreiben — als internes **Prüfwerkzeug** (ist wirklich jeder Satz eindeutig?), nicht als Vorgabe für die Sprachgestaltung selbst (Priorität: Alltagstauglichkeit, siehe Prinzip 3)
-- Testen: Wie klingt/schreibt sich ein längerer, verschachtelter Text? *(erster Dialogtest in 6.8 erledigt, längerer Fließtext steht noch aus)*
+- Testen: Wie klingt/schreibt sich ein längerer, verschachtelter Text? *(erster Dialogtest in 6.8 erledigt; erstes zusammenhängendes Märchen in Buch 4 erledigt — Serialverbketten-Erweiterung daraus bereits übernommen, Pronomen-Frage siehe oben)*
 - Featurales Alphabet (3.2) grafisch als Glyphen ausarbeiten — bisher nur als Konstruktionsregel beschrieben
 - Erste Kontakte zu Linguistik-/Esperanto-Communities für Mitstreiter (Abschnitt 8) knüpfen
