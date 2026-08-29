@@ -1,6 +1,8 @@
 # How to build a world language?
 
-Alias: Yawl - yet another world language
+## Alias: Yawl - yet another world language
+
+This is not about replacing local languages or creating a language for singing and writing poetry. It is intended for communication and documentation in an international context, with the aim of preventing misunderstandings.
 
 Thought and experiments: See the files.
 
